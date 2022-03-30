@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+#root{
+  display: flex;
+  justify-content: center;
+}
+
+.App{
+  width: 800px;
+  margin-top: 20px;
+
+}
+
+.post{
+  display: flex;
+  padding: 15px;
+  border: 2px solid green;
+  margin-top: 50px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.postList__title{
+  text-align: center;
+}
