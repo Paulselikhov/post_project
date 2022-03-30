@@ -5,7 +5,7 @@ import MyInput from "./components/UI/input/MyInput";
 import MySelect from "./components/UI/select/MySelect";
 import "./styles/App.css"
 
-
+//git commit --amend
 
 function App() {
 
@@ -32,16 +32,22 @@ function App() {
     console.log('сработала сортировка')
   
     setSelectedSort(sort)
-    setPosts([...posts].sort( (a, b) => a[sort].localeCompare(b[sort])))
   }
+
+  const sortedPosts = useMemo( () => {
+      if(selectedSort){
+      return [...posts].sort( (a, b) => a[selectedSort].localeCompare(b[selectedSort]))}
+      return posts
+  }, [selectedSort, posts ])
 
   const searchPosts = useMemo( () => { // Этот хук сработает один раз вначале и последующие разы при изменении элементов массива зависимости
     console.log('use memo')
-    if (searchLetter){ // Если в строке поиска есть буква то:
-    return [...posts].filter( item => item.title.toLowerCase().includes(searchLetter))} // Возвращается отсортированный пост
-    return posts // Иначе возвращается обычный пост
     
-  }, [searchLetter, posts]) // массив зависимости
+    return sortedPosts.filter( item => item.title.toLowerCase().includes(searchLetter)) // Возвращается отсортированный пост
+    
+
+    
+  }, [searchLetter, sortedPosts]) // массив зависимости
 
   
   return (
