@@ -1,6 +1,7 @@
 https://paulselikhov.github.io/post_project/
 
 React+хуки
+
 Функционал: 
 - добавление постов
 - удаление постов
