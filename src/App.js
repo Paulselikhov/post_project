@@ -5,14 +5,13 @@ import MyInput from "./components/UI/input/MyInput";
 import MySelect from "./components/UI/select/MySelect";
 import "./styles/App.css"
 
-//git commit --amend
-
 function App() {
 
   const [posts, setPosts] = useState([
-    {id: 1, title: 'Artem-test', body: 'Cig'},
-    {id: 2, title: 'Boris-test', body: 'angry'},
-    {id: 3, title: 'Caul Tretyakov', body: 'Brogrammer'}
+    {id: 1, title: 'Тестовый пост #1', body: 'Первый пост - описание'},
+    {id: 2, title: 'Тестовый пост #2', body: 'Второй пост - описание'},
+    {id: 3, title: 'Тестовый пост #3', body: 'Третий пост - описание'},
+
   ])
   const [selectedSort, setSelectedSort] = useState('')
   const [searchLetter, setSearchLetter] = useState('')
@@ -29,8 +28,6 @@ function App() {
 
   const sortPosts = (sort) => { // Функция срабатывает при изменении селекта.
 
-    console.log('сработала сортировка')
-  
     setSelectedSort(sort)
   }
 
@@ -40,13 +37,11 @@ function App() {
       return posts
   }, [selectedSort, posts ])
 
-  const searchPosts = useMemo( () => { // Этот хук сработает один раз вначале и последующие разы при изменении элементов массива зависимости
-    console.log('use memo')
+  const searchPosts = useMemo( () => { 
     
-    return sortedPosts.filter( item => item.title.toLowerCase().includes(searchLetter)) // Возвращается отсортированный пост
-    
+    console.log('сработал use memo')
 
-    
+    return sortedPosts.filter( item => item.title.toLowerCase().includes(searchLetter)) // Возвращается отсортированный пост
   }, [searchLetter, sortedPosts]) // массив зависимости
 
   
@@ -54,9 +49,6 @@ function App() {
     <div className="App">
       
       <PostForm create = {createPost}/>
-      <div>{selectedSort}</div>
-      <div>{searchLetter}</div>
-
       <MyInput value = {searchLetter} onChange = { (e) => setSearchLetter(e.target.value)} placeholder = '...поиск'/>
       <MySelect
         value = {selectedSort}
@@ -66,8 +58,7 @@ function App() {
           {value: 'body', name: 'По описанию'},
         ]}
       />
-      {/* А это пример  */}
-      { searchPosts !='' ? <PostList remove = {remove} posts = {searchPosts} title='Список постов №1'/> 
+      { searchPosts !='' ? <PostList remove = {remove} posts = {searchPosts} title='Список постов'/> 
       : <div> Постов не найдено</div>
       } 
       
